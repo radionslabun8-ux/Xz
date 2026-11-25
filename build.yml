@@ -1,0 +1,15 @@
+name: Build Windows Exe
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compile C++
+      run: |
+        cl locker.cpp /link user32.lib gdi32.lib advapi32.lib
+    - name: Upload EXE
+      uses: actions/upload-artifact@v3
+      with:
+        name: locker-exe
+        path: locker.exe
